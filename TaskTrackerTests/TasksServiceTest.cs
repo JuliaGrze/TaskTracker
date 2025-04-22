@@ -65,5 +65,45 @@ namespace TaskTrackerTests
         }
 
         #endregion
+
+        #region GetAllTasks
+
+        //Test 1: The list of tasks should be empty by default (before adding new tasks)
+        [Fact]
+        public void GetAllTasks_EmptyList()
+        {
+            //Act
+            List<TaskResponse> actual_tasks_response_list = _tasksService.GetAllTasks();
+
+            //Assert
+            Assert.Empty(actual_tasks_response_list);
+        }
+
+        //Test 2: The list with few tasks
+        public void GetAllTasks_FewTasks()
+        {
+            //Arrange
+            List<TaskAddRequest> taskAddRequests = new List<TaskAddRequest>()
+            {
+                new TaskAddRequest() { Title = "Task 1", Description = "Hello" },
+                new TaskAddRequest() { Title = "Task 2", Description = "Hello" }
+            };
+
+            //Act
+            List<TaskResponse> tasks_list_from_add_task = new List<TaskResponse>();
+            foreach(TaskAddRequest task in taskAddRequests)
+            {
+                tasks_list_from_add_task.Add(_tasksService.AddTask(task));
+            }
+            List<TaskResponse> tasks_response_list_from_getAllTasks = _tasksService.GetAllTasks();
+
+            //Assert
+            foreach (TaskResponse expected_task in tasks_list_from_add_task)
+            {
+                Assert.Contains(expected_task, tasks_response_list_from_getAllTasks);
+            }
+
+        }
+        #endregion
     }
 }

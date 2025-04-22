@@ -47,7 +47,7 @@ namespace Services
 
         public List<TaskResponse> GetAllTasks()
         {
-            throw new NotImplementedException();
+            return _tasks.Select(task => task.ToTaskResponse()).ToList();
         }
 
         public List<TaskResponse> GetFilteredTasks(string searchBy, Taskstatus taskstatus)
