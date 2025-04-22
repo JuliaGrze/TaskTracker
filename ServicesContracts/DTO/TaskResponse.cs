@@ -28,6 +28,15 @@ namespace ServiceContracts.DTO
             TaskResponse taskResponse = (TaskResponse)obj;
             return this.TaskID == taskResponse.TaskID && this.Title == taskResponse.Title && this.Description == taskResponse.Description && this.CreatedDate == taskResponse.CreatedDate && this.Status == taskResponse.Status;
         }
+
+        public override string ToString()
+        {
+            return $"Task ID: {TaskID}\n" +
+               $"Title: {Title}\n" +
+               $"Description: {Description ?? "No description provided"}\n" +
+               $"Created Date: {CreatedDate:yyyy-MM-dd HH:mm:ss}\n" +
+               $"Status: {Status}";
+        }
     }
 
     public static class TaskExtensions

@@ -45,19 +45,54 @@ namespace Services
             throw new NotImplementedException();
         }
 
-        public bool DeleteTask(Guid taskId)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<TaskResponse> GetAllTasks()
         {
             return _tasks.Select(task => task.ToTaskResponse()).ToList();
         }
 
-        public List<TaskResponse> GetFilteredTasks(string searchBy, Taskstatus taskstatus)
+        public List<TaskResponse> GetFilteredTasks(string searchBy, string? searchString)
         {
-            throw new NotImplementedException();
+            List<TaskResponse> allTasks = GetAllTasks();
+            List<TaskResponse> matchingTasks = allTasks;
+
+            if(string.IsNullOrEmpty(searchBy) || string.IsNullOrEmpty(searchString))
+                return matchingTasks;
+
+            switch (searchBy)
+            {
+                //Title
+                case nameof(TaskEntity.Title):
+                    matchingTasks = allTasks.Where(task => 
+                        !string.IsNullOrEmpty(task.Title) &&
+                        task.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                        .ToList();
+                    break;
+                //Description
+                case nameof(TaskEntity.Description):
+                    matchingTasks = allTasks.Where(task => 
+                        !string.IsNullOrEmpty(task.Description) &&
+                        task.Description.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                        .ToList();
+                    break;
+                //CreatedDate
+                case nameof(TaskEntity.CreatedDate):
+                    if(DateTime.TryParse(searchString, out DateTime createdDate))
+                    {
+                        matchingTasks = allTasks.Where(task =>
+                            task.CreatedDate.Date == createdDate.Date)
+                            .ToList();
+                    }
+                    break;
+                case nameof(TaskEntity.Status):
+                    matchingTasks = allTasks.Where(task =>
+                        task.Status.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                        .ToList();
+                    break;
+                default:
+                    matchingTasks = allTasks;
+                    break;
+            }
+            return matchingTasks;
         }
 
         public List<TaskResponse> GetSortedTasks(List<TaskResponse> allTasks, string sortBy, SortOrderEnum sortOrder)

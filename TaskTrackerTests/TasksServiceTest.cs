@@ -1,6 +1,8 @@
-﻿using ServiceContracts;
+﻿using Entities;
+using ServiceContracts;
 using ServiceContracts.DTO;
 using Services;
+using Xunit.Abstractions;
 
 namespace TaskTrackerTests
 {
@@ -8,9 +10,11 @@ namespace TaskTrackerTests
     {
         //fields
         private readonly ITasksService _tasksService;
-        public TasksServiceTest()
+        private readonly ITestOutputHelper _outputHelper;
+        public TasksServiceTest(ITestOutputHelper testOutputHelper)
         {
             _tasksService = new TasksService();
+            _outputHelper = testOutputHelper;
         }
 
         #region AddTask
@@ -154,5 +158,86 @@ namespace TaskTrackerTests
         }
 
         #endregion
+
+        #region GetFilteredTasks     
+
+        //Task 1: Empty Search text, should returns AllTasks
+        [Fact]
+        public void GetFilteredTasks_EmptySearchText()
+        {
+            // Arrange: Adding tasks
+            _outputHelper.WriteLine("Expected:");
+            List<TaskResponse> tasks_add_request = ListOfTasksAddedToList();
+
+            //Act
+            List<TaskResponse> actual_tasks_response_from_search = _tasksService.GetFilteredTasks(nameof(TaskEntity.Title), "");
+
+            _outputHelper.WriteLine("Actual:");
+            foreach (TaskResponse taskResponse in actual_tasks_response_from_search)
+            {
+                _outputHelper.WriteLine(taskResponse.ToString());
+            }
+
+            //Assert
+            foreach(TaskResponse taskResponse in tasks_add_request)
+            {
+                Assert.Contains(taskResponse, actual_tasks_response_from_search);
+            }
+        }
+
+        //Task 1: Empty Search text, should returns AllTasks
+        [Fact]
+        public void GetFilteredTasks_SearchByTitle()
+        {
+            // Arrange: Adding tasks
+            _outputHelper.WriteLine("Expected:");
+            List<TaskResponse> tasks_add_request = ListOfTasksAddedToList();
+
+            //Act
+            List<TaskResponse> actual_tasks_response_from_search = _tasksService.GetFilteredTasks(nameof(TaskEntity.Title), "Task");
+
+            _outputHelper.WriteLine("Actual:");
+            foreach (TaskResponse taskResponse in actual_tasks_response_from_search)
+            {
+                _outputHelper.WriteLine(taskResponse.ToString());
+            }
+
+            //Assert
+            foreach (TaskResponse taskResponse in tasks_add_request)
+            {
+                if(taskResponse.Title != null)
+                    if(taskResponse.Title.Contains("Task", StringComparison.OrdinalIgnoreCase))
+                        Assert.Contains(taskResponse, actual_tasks_response_from_search);
+            }
+        }
+
+        #endregion
+
+        public List<TaskResponse> ListOfTasksAddedToList()
+        {
+            TaskAddRequest task1 = new TaskAddRequest() { Title = "Task 1", Description = "Description 1" };
+            TaskAddRequest task2 = new TaskAddRequest() { Title = "Task 2", Description = "Description 2" };
+            TaskAddRequest task3 = new TaskAddRequest() { Title = "Another Task", Description = "Description 3" };
+
+            List<TaskAddRequest> tasks_add_request = new List<TaskAddRequest>()
+            {
+                task1, task2, task3
+            };
+
+            List<TaskResponse> tasks_response_list_from_add = new List<TaskResponse>();
+            foreach (TaskAddRequest taskAddRequest in tasks_add_request)
+            {
+                tasks_response_list_from_add.Add(_tasksService.AddTask(taskAddRequest));
+            }
+
+            List<TaskResponse> tasks_response_from_get = _tasksService.GetAllTasks();
+            foreach(TaskResponse taskResponse in tasks_response_from_get)
+            {
+                _outputHelper.WriteLine(taskResponse.ToString());
+            }
+
+            return tasks_response_list_from_add;
+
+        }
     }
 }

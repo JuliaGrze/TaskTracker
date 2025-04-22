@@ -45,15 +45,15 @@ namespace ServiceContracts
         /// </summary>
         /// <param name="taskId">The ID of the task to delete.</param>
         /// <returns>True if the task was successfully deleted, otherwise false.</returns>
-        bool DeleteTask(Guid taskId);
+        bool DeleteTask(Guid? taskId);
 
         /// <summary>
         /// Retrieves tasks filtered by search criteria and status.
         /// </summary>
         /// <param name="searchBy">The search string to filter tasks by title or description.</param>
-        /// <param name="taskstatus">The status of the tasks to filter (Pending, InProgress, Completed).</param>
-        /// <returns>A list of task responses that match the search and status criteria.</returns>
-        List<TaskResponse> GetFilteredTasks(string searchBy, Taskstatus taskstatus);
+        /// <param name="searchString">The searchString to search.</param>
+        /// <returns>A list of task responses that match the search.</returns>
+        List<TaskResponse> GetFilteredTasks(string searchBy, string? searchString);
 
         /// <summary>
         /// Retrieves tasks sorted by a specified field and order.
