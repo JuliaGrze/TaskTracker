@@ -3,6 +3,7 @@ using ServiceContracts;
 using ServiceContracts.DTO;
 using ServiceContracts.Enums;
 using Services;
+using System.Threading.Tasks;
 using Xunit.Abstractions;
 
 namespace TaskTrackerTests
@@ -329,6 +330,52 @@ namespace TaskTrackerTests
         #endregion
 
 
+        #region DeleteTask
+
+        //Test 1: If TaskID is null, it should return false
+        [Fact]
+        public void DeleteTask_TaskIDIsNull()
+        {
+            //Arrange
+            Guid? taskID = Guid.Empty;
+
+            //Act
+            bool isDeleated = _tasksService.DeleteTask(taskID);
+
+            //Assert
+            Assert.False(isDeleated);
+        }
+
+        //Test 2: If we supply an ivalidID, it should return false
+        [Fact]
+        public void DeleteTask_InvalidTaskID()
+        {
+            //Arrange
+            Guid? taskID = Guid.NewGuid();
+
+            //Act
+            bool isDeleated = _tasksService.DeleteTask(taskID);
+
+            //Assert
+            Assert.False(isDeleated);
+        }
+
+        //Test 3: If we supply a validID, it should return true
+        [Fact]
+        public void DeleteTask_validTaskID()
+        {
+            //Arrange
+            TaskAddRequest taskAddRequest = new TaskAddRequest() { Title = "Title", Description = "Description" };
+            TaskResponse taskResponse_from_add_request = _tasksService.AddTask(taskAddRequest);
+
+            //Act
+            bool isDeleated = _tasksService.DeleteTask(taskResponse_from_add_request.TaskID);
+
+            //Assert
+            Assert.True(isDeleated);
+        }
+
+        #endregion
 
         public List<TaskResponse> ListOfTasksAddedToList()
         {

@@ -43,7 +43,19 @@ namespace Services
 
         public bool DeleteTask(Guid? taskId)
         {
-            throw new NotImplementedException();
+            //check if taskID is not null
+            if(taskId == null) 
+                throw new ArgumentNullException(nameof(taskId));
+
+            //Get the matching Task object from List<Task>
+            TaskEntity? matchingTask = _tasks.FirstOrDefault(task => task.TaskID == taskId);
+
+            if(matchingTask == null)
+                return false;
+
+            //Delete the matching Task from List<Task>
+            _tasks.RemoveAll(temp => temp.TaskID == matchingTask.TaskID);
+            return true;
         }
 
         public List<TaskResponse> GetAllTasks()
