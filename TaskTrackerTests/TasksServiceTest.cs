@@ -1,6 +1,7 @@
 ﻿using Entities;
 using ServiceContracts;
 using ServiceContracts.DTO;
+using ServiceContracts.Enums;
 using Services;
 using Xunit.Abstractions;
 
@@ -213,6 +214,42 @@ namespace TaskTrackerTests
 
         #endregion
 
+        #region GetSortedTasks
+
+        //Test 1: Sort based on Title in DwESC, it should return tasks list in descending way
+        [Fact]
+        public void GetSortedTasks_SortByTitle()
+        {
+            //Arrange: Add few tasks to list
+            List<TaskResponse> tasks_add_response_list = ListOfTasksAddedToList();
+            List<TaskResponse> actual_tasks_list = _tasksService.GetAllTasks();
+
+            // Act: Sort the list in descending order based on Title
+            List<TaskResponse> task_response_from_sort = _tasksService.GetSortedTasks(actual_tasks_list, nameof(TaskEntity.Title), SortOrderEnum.DESC);
+
+            //print task_response_from_sort for debugging
+            _outputHelper.WriteLine("Sorted Tasks by Title in DESC:");
+            foreach (TaskResponse task in task_response_from_sort)
+            {
+                _outputHelper.WriteLine(task.ToString());
+            }
+
+            // Prepare expected result by manually sorting the tasks list by Title in descending order
+            List<TaskResponse> expected_sorted_tasks = tasks_add_response_list
+                .OrderByDescending(task => task.Title)
+                .ToList();
+
+            //Assert: Check that the sorted list is in descending order by Title
+            for (int i = 0; i < task_response_from_sort.Count; i++)
+            {
+                Assert.Equal(expected_sorted_tasks[i].TaskID, task_response_from_sort[i].TaskID);
+                Assert.Equal(expected_sorted_tasks[i].Title, task_response_from_sort[i].Title);
+                Assert.Equal(expected_sorted_tasks[i].Description, task_response_from_sort[i].Description);
+            }
+        }
+
+        #endregion
+
         public List<TaskResponse> ListOfTasksAddedToList()
         {
             TaskAddRequest task1 = new TaskAddRequest() { Title = "Task 1", Description = "Description 1" };
@@ -239,5 +276,7 @@ namespace TaskTrackerTests
             return tasks_response_list_from_add;
 
         }
+
+        
     }
 }

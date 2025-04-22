@@ -97,7 +97,37 @@ namespace Services
 
         public List<TaskResponse> GetSortedTasks(List<TaskResponse> allTasks, string sortBy, SortOrderEnum sortOrder)
         {
-            throw new NotImplementedException();
+            if(sortBy == null || sortOrder == null)
+                return allTasks;
+
+            List<TaskResponse> sortedTasks = (sortBy, sortOrder) switch
+            {
+                //Title
+                (nameof(TaskResponse.Title), SortOrderEnum.ASC) =>
+                    allTasks.OrderBy(task => task.Title, StringComparer.OrdinalIgnoreCase).ToList(),
+                (nameof(TaskResponse.Title), SortOrderEnum.DESC) =>
+                    allTasks.OrderByDescending(task => task.Title, StringComparer.OrdinalIgnoreCase).ToList(),
+
+                //Description
+                (nameof(TaskResponse.Description), SortOrderEnum.ASC) =>
+                    allTasks.OrderBy(task => task.Description, StringComparer.OrdinalIgnoreCase).ToList(),
+                (nameof(TaskResponse.Description), SortOrderEnum.DESC) =>
+                    allTasks.OrderByDescending(task => task.Description, StringComparer.OrdinalIgnoreCase).ToList(),
+
+                //CreatedDate
+                (nameof(TaskResponse.CreatedDate), SortOrderEnum.ASC) =>
+                    allTasks.OrderBy(task => task.CreatedDate).ToList(),
+                (nameof(TaskResponse.CreatedDate), SortOrderEnum.DESC) =>
+                    allTasks.OrderByDescending(task => task.CreatedDate).ToList(),
+
+                //Status
+                (nameof(TaskResponse.Status), SortOrderEnum.ASC) =>
+                    allTasks.OrderBy(task => (int)task.Status).ToList(),
+                (nameof(TaskResponse.Status), SortOrderEnum.DESC) =>
+                    allTasks.OrderByDescending(task => (int)task.Status).ToList()
+            };
+
+            return sortedTasks;
         }
 
         public TaskResponse? GetTaskById(Guid? taskId)
