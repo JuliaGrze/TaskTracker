@@ -2,6 +2,7 @@
 using ServiceContracts;
 using ServiceContracts.DTO;
 using ServiceContracts.Enums;
+using Services.Helpers;
 
 namespace Services
 {
@@ -147,7 +148,25 @@ namespace Services
 
         public TaskResponse UpdateTask(TaskUpdateRequest? taskUpdateRequest)
         {
-            throw new NotImplementedException();
+            if (taskUpdateRequest == null)
+                throw new ArgumentNullException(nameof(taskUpdateRequest));
+
+            //validation
+            ValidationHelpers.ModelValidation(taskUpdateRequest);
+
+            //Get the match Task object from List<Task> based on TaskID to update
+            TaskResponse? matchingTask = GetTaskById(taskUpdateRequest.TaskID);
+
+            //check if matching Task is null
+            if (matchingTask == null)
+                throw new ArgumentException("Given Task ID it doesn't exist!");
+
+            //update all details from TaskUpdateRequest object to Task Objecct
+            matchingTask.Title = taskUpdateRequest.Title;
+            matchingTask.Description = taskUpdateRequest.Description;
+            matchingTask.Status = taskUpdateRequest.Status;
+
+            return matchingTask;
         }
     }
 }

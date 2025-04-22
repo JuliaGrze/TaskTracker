@@ -250,6 +250,86 @@ namespace TaskTrackerTests
 
         #endregion
 
+        #region UpdateTask
+
+        //Test 1: Null Task, it should returns ArgumentNullException
+        [Fact]
+        public void UpdateTask_NullTask()
+        {
+            //Arrange
+            TaskUpdateRequest? taskUpdateRequest = null;
+
+            //Assert
+            Assert.Throws<ArgumentNullException>(() => { _tasksService.UpdateTask(taskUpdateRequest); });
+        }
+
+        //Test 2: Invalid Task ID, it should returns ArgumentException
+        [Fact]
+        public void UpdateTask_EmptyTitle()
+        {
+            //Arrange
+            TaskUpdateRequest? taskUpdateRequest = new TaskUpdateRequest()
+            {
+                TaskID = new Guid()
+            };
+
+            //Assert
+            Assert.Throws<ArgumentException>(() => { _tasksService.UpdateTask(taskUpdateRequest); });
+        }
+
+        //Test 3: Empty title, it should returns ArgumentException
+        [Fact]
+        public void UpdateTask_InvalidTaskID()
+        {
+            //Arrange
+            TaskAddRequest taskAddRequest = new TaskAddRequest()
+            {
+                Title = "witam"
+            };
+            TaskResponse taskResponse_from_add = _tasksService.AddTask(taskAddRequest);
+
+            TaskUpdateRequest? taskUpdateRequest = new TaskUpdateRequest()
+            {
+                TaskID = taskResponse_from_add.TaskID,
+                Title = null
+            };
+
+            //Assert
+            Assert.Throws<ArgumentException>(() => { _tasksService.UpdateTask(taskUpdateRequest); });
+        }
+
+        //Test 4: Valid data
+        [Fact]
+        public void UpdateTask_ValidData()
+        {
+            //Arrange
+            TaskAddRequest taskAddRequest = new TaskAddRequest()
+            {
+                Title = "witam"
+            };
+            TaskResponse taskResponse_from_add = _tasksService.AddTask(taskAddRequest);
+
+            TaskUpdateRequest taskUpdateRequest = new TaskUpdateRequest()
+            {
+                TaskID = taskResponse_from_add.TaskID,
+                Title = "Hello",
+                Description = "Opis"
+            };
+
+            //Act
+            TaskResponse taskResponse_from_update = _tasksService.UpdateTask(taskUpdateRequest);
+
+            //Assert
+            Assert.Equal(taskUpdateRequest.Title, taskResponse_from_update.Title);
+            Assert.Equal(taskUpdateRequest.Description, taskResponse_from_update.Description);
+            Assert.Equal(taskUpdateRequest.TaskID, taskResponse_from_update.TaskID);
+        }
+
+
+        #endregion
+
+
+
         public List<TaskResponse> ListOfTasksAddedToList()
         {
             TaskAddRequest task1 = new TaskAddRequest() { Title = "Task 1", Description = "Description 1" };

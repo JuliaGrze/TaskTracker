@@ -2,6 +2,7 @@
 using ServiceContracts.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -16,6 +17,7 @@ namespace ServiceContracts.DTO
     public class TaskUpdateRequest
     {
         public Guid TaskID { get; set; }
+        [Required(ErrorMessage = "Title can't be blank")]
         public string Title { get; set; }
         public string? Description { get; set; }
         public Taskstatus Status { get; set; }

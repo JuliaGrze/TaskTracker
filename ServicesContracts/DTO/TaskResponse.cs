@@ -37,6 +37,17 @@ namespace ServiceContracts.DTO
                $"Created Date: {CreatedDate:yyyy-MM-dd HH:mm:ss}\n" +
                $"Status: {Status}";
         }
+
+        public TaskUpdateRequest ToTaskUpdateRequest()
+        {
+            return new TaskUpdateRequest()
+            {
+                TaskID = this.TaskID,
+                Title = this.Title,
+                Description = this.Description,
+                Status = this.Status
+            };
+        }
     }
 
     public static class TaskExtensions

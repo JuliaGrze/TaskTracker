@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace ServiceContracts.DTO
 {
@@ -12,6 +13,7 @@ namespace ServiceContracts.DTO
     /// </summary>
     public class TaskAddRequest
     {
+        [Required(ErrorMessage = "Title can't be blank")]
         public string Title { get; set; }
         public string? Description { get; set; }
 
