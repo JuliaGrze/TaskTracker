@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\julia\\Desktop\\c# \u002B .net\\Projekty\\TaskTracker\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6125611A-5555-49F4-801C-CE3D414457E4}|TaskTracker\\TaskTracker.csproj|c:\\users\\julia\\desktop\\c# \u002B .net\\projekty\\tasktracker\\tasktracker\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6125611A-5555-49F4-801C-CE3D414457E4}|TaskTracker\\TaskTracker.csproj|solutionrelative:tasktracker\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2D5352BD-4EAA-490A-8B91-0C37B0AA0CE7}|ServicesContracts\\ServiceContracts.csproj|c:\\users\\julia\\desktop\\c# \u002B .net\\projekty\\tasktracker\\servicescontracts\\itasksservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D5352BD-4EAA-490A-8B91-0C37B0AA0CE7}|ServicesContracts\\ServiceContracts.csproj|solutionrelative:servicescontracts\\itasksservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,14 +23,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\c# \u002B .net\\Projekty\\TaskTracker\\TaskTracker\\Program.cs",
-              "RelativeDocumentMoniker": "TaskTracker\\Program.cs",
-              "ToolTip": "C:\\Users\\julia\\Desktop\\c# \u002B .net\\Projekty\\TaskTracker\\TaskTracker\\Program.cs",
-              "RelativeToolTip": "TaskTracker\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAkAAAAAAAAAA==",
+              "Title": "ITasksService.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\c# \u002B .net\\Projekty\\TaskTracker\\ServicesContracts\\ITasksService.cs",
+              "RelativeDocumentMoniker": "ServicesContracts\\ITasksService.cs",
+              "ToolTip": "C:\\Users\\julia\\Desktop\\c# \u002B .net\\Projekty\\TaskTracker\\ServicesContracts\\ITasksService.cs",
+              "RelativeToolTip": "ServicesContracts\\ITasksService.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAgwBwAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-22T12:00:45.025Z",
+              "WhenOpened": "2025-04-22T12:55:40.781Z",
               "EditorCaption": ""
             }
           ]
