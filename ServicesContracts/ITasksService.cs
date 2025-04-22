@@ -31,7 +31,7 @@ namespace ServiceContracts
         /// </summary>
         /// <param name="taskId">The ID of the task to retrieve.</param>
         /// <returns>A response containing the task details, or null if the task is not found.</returns>
-        TaskResponse? GetTaskById(Guid taskId);
+        TaskResponse? GetTaskById(Guid? taskId);
 
         /// <summary>
         /// Updates an existing task with new details.

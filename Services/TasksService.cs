@@ -40,6 +40,11 @@ namespace Services
             return task.ToTaskResponse();
         }
 
+        public bool DeleteTask(Guid? taskId)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool DeleteTask(Guid taskId)
         {
             throw new NotImplementedException();
@@ -60,10 +65,20 @@ namespace Services
             throw new NotImplementedException();
         }
 
-        public TaskResponse? GetTaskById(Guid taskId)
+        public TaskResponse? GetTaskById(Guid? taskId)
         {
-            throw new NotImplementedException();
+            //Validation: if taskID is null
+            if(taskId == null)
+                return null;
+
+            //Get matching TaskResponse from List<TaskEntity> based on taskID
+            TaskResponse? taskResponse = _tasks.FirstOrDefault(temp => temp.TaskID == taskId)?.ToTaskResponse();
+
+            if(taskResponse == null) return null;
+
+            return taskResponse;
         }
+
 
         public TaskResponse UpdateTask(TaskUpdateRequest? taskUpdateRequest)
         {

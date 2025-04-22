@@ -19,6 +19,15 @@ namespace ServiceContracts.DTO
 
         public DateTime CreatedDate { get; set; }
         public Taskstatus Status { get; set; }
+
+        //It compares the current object to another object of TaskResponse type and return true, if both vales are same; otherwise returns false
+        public override bool Equals(object? obj)
+        {
+            if (obj == null) return false;
+            if (obj.GetType() != typeof(TaskResponse)) return false;
+            TaskResponse taskResponse = (TaskResponse)obj;
+            return this.TaskID == taskResponse.TaskID && this.Title == taskResponse.Title && this.Description == taskResponse.Description && this.CreatedDate == taskResponse.CreatedDate && this.Status == taskResponse.Status;
+        }
     }
 
     public static class TaskExtensions

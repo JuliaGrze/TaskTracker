@@ -76,10 +76,12 @@ namespace TaskTrackerTests
             List<TaskResponse> actual_tasks_response_list = _tasksService.GetAllTasks();
 
             //Assert
+            Assert.NotNull(actual_tasks_response_list);
             Assert.Empty(actual_tasks_response_list);
         }
 
         //Test 2: The list with few tasks
+        [Fact]
         public void GetAllTasks_FewTasks()
         {
             //Arrange
@@ -104,6 +106,53 @@ namespace TaskTrackerTests
             }
 
         }
+        #endregion
+
+        #region GetTaskById
+
+        //Test 1: If TaskID is null, it should return null as TaskResponse
+        [Fact]
+        public void GetTaskByID_TaskIDIsNull()
+        {
+            //Arrange
+            Guid? taskID = Guid.Empty;
+
+            //Act
+            TaskResponse taskResponse_from_get = _tasksService.GetTaskById(taskID);
+
+            //Assert
+            Assert.Null(taskResponse_from_get);
+        }
+
+        //Test 2: If we supply an ivalidID, it should return null as TaskResponse 
+        [Fact]
+        public void GetTaskByID_InvalidTaskID()
+        {
+            //Arrange
+            Guid? taskID = Guid.NewGuid();
+
+            //Act
+            TaskResponse taskResponse_from_get = _tasksService.GetTaskById(taskID);
+
+            //Assert
+            Assert.Null(taskResponse_from_get);
+        }
+
+        //Test 3: If we supply a validID, it should return the matching task details as TaskRepsonse
+        [Fact]
+        public void GetTaskByID_validTaskID()
+        {
+            //Arrange
+            TaskAddRequest taskAddRequest = new TaskAddRequest() { Title = "Title", Description = "Description" };
+            TaskResponse taskResponse_from_add_request = _tasksService.AddTask(taskAddRequest);
+
+            //Act
+            TaskResponse actual_taskResponse_from_get = _tasksService.GetTaskById(taskResponse_from_add_request.TaskID);
+
+            //Assert
+            Assert.Equal(taskResponse_from_add_request, actual_taskResponse_from_get);
+        }
+
         #endregion
     }
 }
