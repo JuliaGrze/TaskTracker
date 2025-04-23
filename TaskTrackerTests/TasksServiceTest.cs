@@ -15,7 +15,7 @@ namespace TaskTrackerTests
         private readonly ITestOutputHelper _outputHelper;
         public TasksServiceTest(ITestOutputHelper testOutputHelper)
         {
-            _tasksService = new TasksService(false);
+            _tasksService = new TasksService();
             _outputHelper = testOutputHelper;
         }
 

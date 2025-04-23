@@ -1,0 +1,58 @@
+[
+  {
+    "TaskID": "FDE50F74-5BF6-4125-AB35-832A1A987486",
+    "Title": "Bieganie",
+    "Description": "Bieg na 10 km",
+    "CreatedDate": "2024-05-11T12:00:00Z",
+    "Status": "Pending"
+  },
+  {
+    "TaskID": "56E7AD83-5296-4AA0-82A7-43CB3B9128ED",
+    "Title": "Kolokwium bazy",
+    "Description": "Nauka na kolokwium z Mongo",
+    "CreatedDate": "2024-05-16T12:00:00Z",
+    "Status": "InProgress"
+  },
+  {
+    "TaskID": "9B8DE07F-ECAC-4A14-9943-CB797D47F962",
+    "Title": "Praca",
+    "Description": "Znalezienie pracy jako .NET Developer",
+    "CreatedDate": "2024-05-19T12:00:00Z",
+    "Status": "InProgress"
+  },
+  {
+    "TaskID": "0B411A9A-0B64-4C70-96B5-F2025EA21AD9",
+    "Title": "Zrobienie formy",
+    "Description": "Zrobienie formy na lato :)",
+    "CreatedDate": "2024-05-06T12:00:00Z",
+    "Status": "Completed"
+  },
+  {
+    "TaskID": "E2A3C4B5-D6E7-F8A9-B0C1-D2E3F4A5B6C7",
+    "Title": "Zakupy",
+    "Description": "Kupić mleko, chleb, jajka",
+    "CreatedDate": "2024-05-20T12:00:00Z",
+    "Status": "Pending"
+  },
+  {
+    "TaskID": "F1B2C3D4-E5F6-A7B8-C9D0-E1F2A3B4C5D6",
+    "Title": "Projekt ASP.NET",
+    "Description": "Dokończyć projekt Task Tracker",
+    "CreatedDate": "2024-05-21T12:00:00Z",
+    "Status": "InProgress"
+  },
+  {
+    "TaskID": "A0B9C8D7-E6F5-A4B3-C2D1-E0F9A8B7C6D5",
+    "Title": "Nauka Entity Framework",
+    "Description": "Opanować EF Core przed egzaminem",
+    "CreatedDate": "2024-05-18T12:00:00Z",
+    "Status": "Pending"
+  },
+  {
+    "TaskID": "B1C2D3E4-F5A6-B7C8-D9E0-F1A2B3C4D5E6",
+    "Title": "Spotkanie z mentorem",
+    "Description": "Omówić rozwój kariery .NET",
+    "CreatedDate": "2024-05-14T12:00:00Z",
+    "Status": "Completed"
+  }
+]

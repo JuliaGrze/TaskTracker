@@ -1,3 +1,6 @@
+using Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using ServiceContracts;
 using Services;
 
@@ -7,7 +10,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 //Add services into IoC container
-builder.Services.AddSingleton<ITasksService, TasksService>();
+builder.Services.AddScoped<ITasksService, TasksService>();
+
+//conection witth databse
+builder.Services.AddDbContext<TaskDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
 var app = builder.Build();
 

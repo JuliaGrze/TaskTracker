@@ -9,84 +9,10 @@ namespace Services
     public class TasksService : ITasksService
     {
         //private fields
-        private List<TaskEntity> _tasks;
-        public TasksService(bool initilize = true)
+        private readonly TaskDbContext _db;
+        public TasksService(TaskDbContext taskDbContext)
         {
-            _tasks = new List<TaskEntity>();
-            if (initilize)
-            {
-                _tasks.Add(new TaskEntity
-                {
-                    TaskID = Guid.Parse("FDE50F74-5BF6-4125-AB35-832A1A987486"),
-                    Title = "Bieganie",
-                    Description = "Bieg na 10 km",
-                    CreatedDate = DateTime.Now.AddDays(-10),
-                    Status = Taskstatus.Pending.ToString()
-                });
-
-                _tasks.Add(new TaskEntity
-                {
-                    TaskID = Guid.Parse("56E7AD83-5296-4AA0-82A7-43CB3B9128ED"),
-                    Title = "Kolokwium bazy",
-                    Description = "Nauka na kolokwium z Mongo",
-                    CreatedDate = DateTime.Now.AddDays(-5),
-                    Status = Taskstatus.InProgress.ToString()
-                });
-
-                _tasks.Add(new TaskEntity
-                {
-                    TaskID = Guid.Parse("9B8DE07F-ECAC-4A14-9943-CB797D47F962"),
-                    Title = "Praca",
-                    Description = "Znalezienie pracy jako .NET Developer",
-                    CreatedDate = DateTime.Now.AddDays(-2),
-                    Status = Taskstatus.InProgress.ToString()
-                });
-
-                _tasks.Add(new TaskEntity
-                {
-                    TaskID = Guid.Parse("0B411A9A-0B64-4C70-96B5-F2025EA21AD9"),
-                    Title = "Zrobienie formy",
-                    Description = "Zrobienie formy na lato :)",
-                    CreatedDate = DateTime.Now.AddDays(-15),
-                    Status = Taskstatus.Completed.ToString()
-                });
-
-                _tasks.Add(new TaskEntity
-                {
-                    TaskID = Guid.NewGuid(),
-                    Title = "Zakupy",
-                    Description = "Kupić mleko, chleb, jajka",
-                    CreatedDate = DateTime.Now.AddDays(-1),
-                    Status = Taskstatus.Pending.ToString()
-                });
-
-                _tasks.Add(new TaskEntity
-                {
-                    TaskID = Guid.NewGuid(),
-                    Title = "Projekt ASP.NET",
-                    Description = "Dokończyć projekt Task Tracker",
-                    CreatedDate = DateTime.Now,
-                    Status = Taskstatus.InProgress.ToString()
-                });
-
-                _tasks.Add(new TaskEntity
-                {
-                    TaskID = Guid.NewGuid(),
-                    Title = "Nauka Entity Framework",
-                    Description = "Opanować EF Core przed egzaminem",
-                    CreatedDate = DateTime.Now.AddDays(-3),
-                    Status = Taskstatus.Pending.ToString()
-                });
-
-                _tasks.Add(new TaskEntity
-                {
-                    TaskID = Guid.NewGuid(),
-                    Title = "Spotkanie z mentorem",
-                    Description = "Omówić rozwój kariery .NET",
-                    CreatedDate = DateTime.Now.AddDays(-7),
-                    Status = Taskstatus.Completed.ToString()
-                });
-            }
+            _db = taskDbContext;
         }
 
         public TaskResponse AddTask(TaskAddRequest? taskAddRequest)
@@ -110,7 +36,8 @@ namespace Services
             task.TaskID = Guid.NewGuid();
 
             //Add Task Entity obkect into _tasks list
-            _tasks.Add(task);
+            _db.Tasks.Add(task);
+            _db.SaveChanges();
 
             return task.ToTaskResponse();
         }
@@ -122,19 +49,20 @@ namespace Services
                 throw new ArgumentNullException(nameof(taskId));
 
             //Get the matching Task object from List<Task>
-            TaskEntity? matchingTask = _tasks.FirstOrDefault(task => task.TaskID == taskId);
+            TaskEntity? matchingTask = _db.Tasks.FirstOrDefault(task => task.TaskID == taskId);
 
             if(matchingTask == null)
                 return false;
 
             //Delete the matching Task from List<Task>
-            _tasks.RemoveAll(temp => temp.TaskID == matchingTask.TaskID);
+            _db.Tasks.Remove(matchingTask);
+            _db.SaveChanges();
             return true;
         }
 
         public List<TaskResponse> GetAllTasks()
         {
-            return _tasks.Select(task => task.ToTaskResponse()).ToList();
+            return _db.Tasks.Select(task => task.ToTaskResponse()).ToList();
         }
 
         public List<TaskResponse> GetFilteredTasks(string searchBy, string? searchString)
@@ -224,7 +152,7 @@ namespace Services
                 return null;
 
             //Get matching TaskResponse from List<TaskEntity> based on taskID
-            TaskResponse? taskResponse = _tasks.FirstOrDefault(temp => temp.TaskID == taskId)?.ToTaskResponse();
+            TaskResponse? taskResponse = _db.Tasks.FirstOrDefault(temp => temp.TaskID == taskId)?.ToTaskResponse();
 
             if(taskResponse == null) return null;
 
@@ -241,7 +169,7 @@ namespace Services
             ValidationHelpers.ModelValidation(taskUpdateRequest);
 
             // Get the matching TaskEntity object from the list based on TaskID
-            TaskEntity? matchingTask = _tasks.FirstOrDefault(task => task.TaskID == taskUpdateRequest.TaskID);
+            TaskEntity? matchingTask = _db.Tasks.FirstOrDefault(task => task.TaskID == taskUpdateRequest.TaskID);
 
             // Check if the matching task is null
             if (matchingTask == null)
@@ -251,6 +179,9 @@ namespace Services
             matchingTask.Title = taskUpdateRequest.Title;
             matchingTask.Description = taskUpdateRequest.Description;
             matchingTask.Status = taskUpdateRequest.Status.ToString();
+
+            //Ecectue Update in Database
+            _db.SaveChanges();
 
             // Return the updated TaskResponse
             return matchingTask.ToTaskResponse();
