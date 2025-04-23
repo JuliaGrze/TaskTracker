@@ -17,6 +17,7 @@ namespace ServiceContracts.DTO
         [MinLength(3, ErrorMessage = "Title can't be shorter than 3 characters")]
         public string Title { get; set; }
         public string? Description { get; set; }
+        [Required(ErrorMessage = "You have to pick status!")]
         public Taskstatus Status { get; set; } = Taskstatus.Pending;
 
         public TaskEntity ToTask()

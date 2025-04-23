@@ -8,33 +8,33 @@
     <h1>Tasks</h1>
 
     <!--SEARCH-->
-    <div class="box flex">
-        <div class="flex-1">
-            <select class="form-input" name="searchBy">
-                @foreach (var field in ViewBag.SearchFields)
+<div class="box flex w-75 center-box search-container"> <!-- Dodaj klasę search-container -->
+    <div class="w-25 search-filter"> <!-- Dodaj klasę search-filter -->
+        <select class="form-input" name="searchBy">
+            @foreach (var field in ViewBag.SearchFields)
+            {
+                @if (field.Key == ViewBag.CurrentSearchBy)
                 {
-                    @if (field.Key == ViewBag.CurrentSearchBy)
-                    {
-                        <option value="@field.Key" selected="selected" )>@field.Value</option>
-                    }
-                    else
-                    {
-                        <option value="@field.Key" )>@field.Value</option>
-                    }
+                    <option value="@field.Key" selected="selected">@field.Value</option>
                 }
-            </select>
-        </div>
-
-        <div class="flex-1">
-            <!--Value = zachowany stan z wyszukiwania-->
-            <input type="search" id="Search" class="form-input" name="searchString" placeholder="Search..." value="@ViewBag.CurrentSearchString"/>
-        </div>
-
-        <div class="flex-1">
-            <button class="button button-pastel-yellow-back mr">Search</button>
-            <a asp-controller="Task" asp-action="Index" class="button button-pastel-purple-back">Clear all</a>
-        </div>
+                else
+                {
+                    <option value="@field.Key">@field.Value</option>
+                }
+            }
+        </select>
     </div>
+
+    <div class="flex-1 search-input"> <!-- Dodaj klasę search-input -->
+        <!--Value = zachowany stan z wyszukiwania-->
+        <input type="search" id="Search" class="form-input" name="searchString" placeholder="Search..." value="@ViewBag.CurrentSearchString"/>
+    </div>
+
+    <div class="w-25 search-actions"> <!-- Dodaj klasę search-actions -->
+        <button class="button button-pastel-yellow-back mr">Search</button>
+        <a asp-controller="Tasks" asp-action="Index" class="button button-pastel-purple-back">Clear all</a> <!-- Zmieniono kontroler na Tasks -->
+    </div>
+</div>
 
     <!--TASKS LIST-->
     <table class="table w-100 mt">

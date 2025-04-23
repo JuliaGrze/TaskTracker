@@ -11,10 +11,15 @@
     <div class="container">
         @*NAVBAR*@
         <div class="navbar">
-            <div class="navbar-brand">Task Tracker</div>
+            <div class="navbar-brand">
+                <div class="flex">
+                    <img src="~/logo.png" width="35px" class="ml mr" asp-append-version="true" />
+                    <h3>Task Tracker</h3>
+                </div>
+            </div>
             <ul>
                 <li>
-                    <a href="~/tasks/index">Tasks</a>
+                    <a asp-controller="Task" asp-action="Index" >Tasks</a>
                     <a asp-controller="Task" asp-action="Create">Create Task</a>
                 </li>
             </ul>
@@ -25,5 +30,7 @@
             @RenderBody()
         </div>
     </div>
+    @RenderSection("scripts", required: false)
+
 </body>
 </html>

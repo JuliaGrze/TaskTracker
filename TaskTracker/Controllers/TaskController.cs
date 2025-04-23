@@ -5,6 +5,7 @@ using ServiceContracts.Enums;
 
 namespace TaskTracker.Controllers
 {
+    [Route("[controller]")]
     public class TaskController : Controller
     {
         //private fields
@@ -16,7 +17,7 @@ namespace TaskTracker.Controllers
             _tasksService = tasksService;
         }
 
-        [Route("tasks/index")]
+        [Route("[action]")]
         [Route("/")]
         public IActionResult Index(string searchBy, string? searchString, string sortBy, SortOrderEnum? sortOrder)
         {
@@ -50,14 +51,14 @@ namespace TaskTracker.Controllers
             return View(allTasks);
         }
 
-        [Route("tasks/create")]
+        [Route("[action]")]
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        [Route("tasks/create")]
+        [Route("[action]")]
         [HttpPost]
         public IActionResult Create(TaskAddRequest taskAddRequest)
         {
