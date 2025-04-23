@@ -1,0 +1,50 @@
+﻿@{
+    string Arrow(string column)
+    {
+        if (ViewBag.CurrentSortBy == column)
+        {
+            return ViewBag.CurrentSortOrder == SortOrderEnum.ASC ? "↑" : "↓";
+        }
+        return "";
+    }
+}
+
+<tr>
+    <th>
+        <a asp-controller="Task" asp-action="Index"
+           asp-route-sortBy="Title"
+           asp-route-sortOrder="@(ViewBag.CurrentSortBy == "Title" && ViewBag.CurrentSortOrder == SortOrderEnum.ASC ? "DESC" : "ASC")"
+           asp-route-searchBy="@ViewBag.CurrentSearchBy"
+           asp-route-searchString="@ViewBag.CurrentSearchString">
+            Title @Arrow("Title")
+        </a>
+    </th>
+    <th>
+        <a asp-controller="Task" asp-action="Index"
+           asp-route-sortBy="Description"
+           asp-route-sortOrder="@(ViewBag.CurrentSortBy == "Description" && ViewBag.CurrentSortOrder == SortOrderEnum.ASC ? "DESC" : "ASC")"
+           asp-route-searchBy="@ViewBag.CurrentSearchBy"
+           asp-route-searchString="@ViewBag.CurrentSearchString">
+            Description @Arrow("Description")
+        </a>
+    </th>
+    <th>
+        <a asp-controller="Task" asp-action="Index"
+           asp-route-sortBy="CreatedDate"
+           asp-route-sortOrder="@(ViewBag.CurrentSortBy == "CreatedDate" && ViewBag.CurrentSortOrder == SortOrderEnum.ASC ? "DESC" : "ASC")"
+           asp-route-searchBy="@ViewBag.CurrentSearchBy"
+           asp-route-searchString="@ViewBag.CurrentSearchString">
+            Created Date @Arrow("CreatedDate")
+        </a>
+    </th>
+    <th>
+        <a asp-controller="Task" asp-action="Index"
+           asp-route-sortBy="Status"
+           asp-route-sortOrder="@(ViewBag.CurrentSortBy == "Status" && ViewBag.CurrentSortOrder == SortOrderEnum.ASC ? "DESC" : "ASC")"
+           asp-route-searchBy="@ViewBag.CurrentSearchBy"
+           asp-route-searchString="@ViewBag.CurrentSearchString">
+            Status @Arrow("Status")
+        </a>
+    </th>
+    <th>Actions</th>
+</tr>

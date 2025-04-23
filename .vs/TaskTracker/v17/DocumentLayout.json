@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\julia\\Desktop\\c# \u002B .net\\Projekty\\TaskTracker\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6125611A-5555-49F4-801C-CE3D414457E4}|TaskTracker\\TaskTracker.csproj|c:\\users\\julia\\desktop\\c# \u002B .net\\projekty\\tasktracker\\tasktracker\\views\\task\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6125611A-5555-49F4-801C-CE3D414457E4}|TaskTracker\\TaskTracker.csproj|solutionrelative:tasktracker\\views\\task\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6125611A-5555-49F4-801C-CE3D414457E4}|TaskTracker\\TaskTracker.csproj|c:\\users\\julia\\desktop\\c# \u002B .net\\projekty\\tasktracker\\tasktracker\\controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6125611A-5555-49F4-801C-CE3D414457E4}|TaskTracker\\TaskTracker.csproj|solutionrelative:tasktracker\\controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6125611A-5555-49F4-801C-CE3D414457E4}|TaskTracker\\TaskTracker.csproj|c:\\users\\julia\\desktop\\c# \u002B .net\\projekty\\tasktracker\\tasktracker\\views\\task\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6125611A-5555-49F4-801C-CE3D414457E4}|TaskTracker\\TaskTracker.csproj|solutionrelative:tasktracker\\views\\task\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6125611A-5555-49F4-801C-CE3D414457E4}|TaskTracker\\TaskTracker.csproj|c:\\users\\julia\\desktop\\c# \u002B .net\\projekty\\tasktracker\\tasktracker\\wwwroot\\stylesheet.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
@@ -26,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 137,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
@@ -43,26 +43,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\julia\\Desktop\\c# \u002B .net\\Projekty\\TaskTracker\\TaskTracker\\Views\\Task\\Index.cshtml",
               "RelativeDocumentMoniker": "TaskTracker\\Views\\Task\\Index.cshtml",
               "ToolTip": "C:\\Users\\julia\\Desktop\\c# \u002B .net\\Projekty\\TaskTracker\\TaskTracker\\Views\\Task\\Index.cshtml",
               "RelativeToolTip": "TaskTracker\\Views\\Task\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA8AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-23T08:18:56.636Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "TaskController.cs",
               "DocumentMoniker": "C:\\Users\\julia\\Desktop\\c# \u002B .net\\Projekty\\TaskTracker\\TaskTracker\\Controllers\\TaskController.cs",
               "RelativeDocumentMoniker": "TaskTracker\\Controllers\\TaskController.cs",
               "ToolTip": "C:\\Users\\julia\\Desktop\\c# \u002B .net\\Projekty\\TaskTracker\\TaskTracker\\Controllers\\TaskController.cs",
               "RelativeToolTip": "TaskTracker\\Controllers\\TaskController.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAACIAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABMAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-23T07:36:21.3Z",
               "EditorCaption": ""
@@ -75,7 +75,7 @@
               "RelativeDocumentMoniker": "Services\\TasksService.cs",
               "ToolTip": "C:\\Users\\julia\\Desktop\\c# \u002B .net\\Projekty\\TaskTracker\\Services\\TasksService.cs",
               "RelativeToolTip": "Services\\TasksService.cs",
-              "ViewState": "AgIAAIMAAAAAAAAAAAAwwL4AAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAKwAAAAAAAAAAAAcwMIAAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-22T14:02:31.124Z",
               "EditorCaption": ""

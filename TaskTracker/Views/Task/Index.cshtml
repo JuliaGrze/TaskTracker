@@ -39,13 +39,7 @@
     <!--TASKS LIST-->
     <table class="table w-100 mt">
         <thead>
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Created Data</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
+            @await Html.PartialAsync("_GridColumnHeaderView")
         </thead>
         <tbody>
             @foreach (TaskResponse task in Model)

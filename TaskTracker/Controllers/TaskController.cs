@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ServiceContracts;
 using ServiceContracts.DTO;
+using ServiceContracts.Enums;
 
 namespace TaskTracker.Controllers
 {
@@ -17,11 +18,23 @@ namespace TaskTracker.Controllers
 
         [Route("tasks/index")]
         [Route("/")]
-        public IActionResult Index(string searchBy, string? searchString)
+        public IActionResult Index(string searchBy, string? searchString, string sortBy, SortOrderEnum? sortOrder)
         {
-           
-            //Search dictionary
-            //Actual Name - Display Name
+            List<TaskResponse> allTasks = _tasksService.GetAllTasks();
+
+            // 1. Filtr
+            if (!string.IsNullOrEmpty(searchBy) && !string.IsNullOrEmpty(searchString))
+            {
+                allTasks = _tasksService.GetFilteredTasks(searchBy, searchString);
+            }
+
+            // 2. Sort
+            if (!string.IsNullOrEmpty(sortBy) && sortOrder != null)
+            {
+                allTasks = _tasksService.GetSortedTasks(allTasks, sortBy, sortOrder.Value);
+            }
+
+            // Przekazanie wartości do ViewBag
             ViewBag.SearchFields = new Dictionary<string, string>()
             {
                 {nameof(TaskResponse.Title), "Title"},
@@ -29,15 +42,13 @@ namespace TaskTracker.Controllers
                 {nameof(TaskResponse.CreatedDate), "Created Date"},
                 {nameof(TaskResponse.Status), "Status"},
             };
-
-            //Save search fields adter searching
             ViewBag.CurrentSearchBy = searchBy;
             ViewBag.CurrentSearchString = searchString;
+            ViewBag.CurrentSortBy = sortBy;
+            ViewBag.CurrentSortOrder = sortOrder;
 
-            //Filtered task list or all tasks
-            List<TaskResponse> tasks = _tasksService.GetFilteredTasks(searchBy, searchString);
-
-            return View(tasks);
+            return View(allTasks);
         }
+
     }
 }
