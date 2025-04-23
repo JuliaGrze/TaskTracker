@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Microsoft.EntityFrameworkCore;
 using ServiceContracts;
 using ServiceContracts.DTO;
 using ServiceContracts.Enums;
@@ -15,7 +16,7 @@ namespace TaskTrackerTests
         private readonly ITestOutputHelper _outputHelper;
         public TasksServiceTest(ITestOutputHelper testOutputHelper)
         {
-            _tasksService = new TasksService();
+            _tasksService = new TasksService(new TaskDbContext(new DbContextOptions<TaskDbContext>()));
             _outputHelper = testOutputHelper;
         }
 

@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Microsoft.EntityFrameworkCore;
 using ServiceContracts;
 using ServiceContracts.DTO;
 using ServiceContracts.Enums;
@@ -62,7 +63,12 @@ namespace Services
 
         public List<TaskResponse> GetAllTasks()
         {
-            return _db.Tasks.Select(task => task.ToTaskResponse()).ToList();
+            // Wykonanie zapytania SQL do procedury składowanej GetAllTasks
+            var tasks = _db.Tasks
+                           .FromSqlRaw("EXEC GetAllTasks")  // execute stored procedure
+                           .ToList();
+
+            return tasks.Select(task => task.ToTaskResponse()).ToList();
         }
 
         public List<TaskResponse> GetFilteredTasks(string searchBy, string? searchString)
