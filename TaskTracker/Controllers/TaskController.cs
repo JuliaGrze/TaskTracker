@@ -118,5 +118,30 @@ namespace TaskTracker.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [Route("[action]/{taskID}")]
+        [HttpGet]
+        public IActionResult Delete(Guid taskID)
+        {
+            TaskResponse? taskResponse = _tasksService.GetTaskById(taskID);
+
+            //validation: check if taskresposne is null
+            if (taskResponse == null)
+                return RedirectToAction("Index");
+
+            return View(taskResponse);
+        }
+
+        [Route("[action]/{taskID}")]
+        [HttpPost]
+        public IActionResult Delete(TaskResponse taskResponse)
+        {
+            //validation: check if taskresposne is null
+            if (taskResponse == null)
+                return RedirectToAction("Index");
+
+            _tasksService.DeleteTask(taskResponse.TaskID);
+            return RedirectToAction("Index");
+        }
     }
 }

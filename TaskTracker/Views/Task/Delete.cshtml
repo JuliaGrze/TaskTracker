@@ -1,0 +1,65 @@
+﻿@model TaskResponse
+@{
+    ViewBag.Title = "Delete Task";
+}
+
+<a asp-controller="Task" asp-action="Index">Back to Tasks List</a>
+<h2>Delete Task</h2>
+<h2>Are you sure to delete this task?</h2>
+<div class="center-box box">
+    <form asp-controller="Task" asp-action="Delete" method="post">
+
+        @* Ukryte pole z ID *@
+        <input type="hidden" asp-for="TaskID" />
+
+        @*Title*@
+        <div class="flex">
+            <div class="w-25">
+                <label asp-for="Title" class="form-label">Title:</label>
+            </div>
+            <div class="flex-1">
+                <input asp-for="Title" class="form-input" disabled/>
+            </div>
+        </div>
+
+        @*Description*@
+        <div class="flex">
+            <div class="w-25">
+                <label asp-for="Description" class="form-label">Description:</label>
+            </div>
+            <div class="flex-1">
+                <textarea asp-for="Description" class="form-input" disabled></textarea>
+            </div>
+        </div>
+
+        @*Status*@
+        <div class="flex">
+            <div class="w-25">
+                <label class="form-label">Status:</label>
+            </div>
+            <div class="flex-1">
+                @foreach (Taskstatus status in Enum.GetValues(typeof(Taskstatus)))
+                {
+                    var radioId = $"status_{status}"; // Wygeneruj unikalne ID
+
+                    // Upewnij się, że input ma to ID
+                    <input type="radio" asp-for="Status" value="@status"
+                           id="@radioId" class="mr" disabled/> <!-- Dodaj ID, opcjonalnie klasa marginesu -->
+
+                    // Upewnij się, że label używa tego ID w atrybucie 'for'
+                    <label for="@radioId" class="mr">@status</label> <!-- Kluczowe jest 'for' i dodaj margines -->
+                }
+
+            </div>
+        </div>
+
+        <div class="flex">
+            <div class="w-25"></div>
+            <div class="flex-1">
+                <button class="button button-red-back">Delete</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
