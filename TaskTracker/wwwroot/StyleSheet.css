@@ -492,8 +492,13 @@ a:hover {
 
 .form-label {
     display: inline-block;
-    margin-bottom: 0.5rem; /* Space below label */
-    font-weight: 500; /* Label weight */
+    font-weight: 600; /* Pogrubiona, ale normalna wielkość liter */
+    color: #333; /* Standardowy ciemny kolor */
+    font-size: 1.3em;
+    vertical-align: middle; /* Spróbuj wyrównać do środka w pionie */
+    margin-right: 10px; /* Dodaj odstęp po prawej, jeśli go brakuje */
+    line-height: 1.5; /* Dopasuj do line-height inputa, jeśli trzeba */
+    /* Input ma line-height: 1.5; */
 }
 
 /* Media Query for Larger Screens */

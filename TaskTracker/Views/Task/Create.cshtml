@@ -1,0 +1,75 @@
+﻿@model TaskAddRequest
+@{
+    ViewBag.Title = "Create Task";
+}
+
+<a asp-controller="Task" asp-action="Index">Back to Tasks List</a>
+<h2>Create Task</h2>
+
+<div class="center-box box">
+    <form asp-controller="Task" asp-action="Create" method="post">
+
+        @*Title*@
+        <div class="flex">
+            <div class="w-25">
+                <label asp-for="Title" class="form-label">Title:</label>
+            </div>
+            <div class="flex-1">
+                <input asp-for="Title" class="form-input" />
+                <span asp-validation-for="Title" class="text-red"></span>
+
+            </div>
+        </div>
+
+        @*Description*@
+        <div class="flex">
+            <div class="w-25">
+                <label asp-for="Description" class="form-label">Description:</label>
+            </div>
+            <div class="flex-1">
+                <textarea asp-for="Description" class="form-input"></textarea>
+                <span asp-validation-for="Description" class="text-red"></span>
+
+            </div>
+        </div>
+
+        @*Status*@
+        <div class="flex">
+            <div class="w-25">
+                <label class="form-label">Status:</label>
+            </div>
+            <div class="flex-1">
+                @foreach (Taskstatus status in Enum.GetValues(typeof(Taskstatus)))
+                {
+                    var radioId = $"status_{status}"; // Wygeneruj unikalne ID
+
+                    // Upewnij się, że input ma to ID
+                    <input type="radio" asp-for="Status" value="@status"
+                           id="@radioId" class="mr" /> <!-- Dodaj ID, opcjonalnie klasa marginesu -->
+
+                    // Upewnij się, że label używa tego ID w atrybucie 'for'
+                    <label for="@radioId" class="mr">@status</label> <!-- Kluczowe jest 'for' i dodaj margines -->
+                }
+            </div>
+        </div>
+
+        <div class="flex">
+            <div class="w-25"></div>
+            <div class="flex-1">
+                <button class="button button-green-back">Create</button>
+
+                @if (ViewBag.Errors != null)
+                {
+                    <div class="text-red ml">
+                        <ul>
+                            @foreach (string error in ViewBag.Errors)
+                            {
+                                <li class="ml">@error</li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </form>
+</div>

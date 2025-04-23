@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 //Add services into IoC container
-builder.Services.AddScoped<ITasksService, TasksService>();
+builder.Services.AddSingleton<ITasksService, TasksService>();
 
 var app = builder.Build();
 

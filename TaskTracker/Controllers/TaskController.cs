@@ -50,5 +50,33 @@ namespace TaskTracker.Controllers
             return View(allTasks);
         }
 
+        [Route("tasks/create")]
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [Route("tasks/create")]
+        [HttpPost]
+        public IActionResult Create(TaskAddRequest taskAddRequest)
+        {
+            //check if inputs are valid
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Errors = ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+
+                return View(taskAddRequest);
+            }
+
+
+            //create new task
+            _tasksService.AddTask(taskAddRequest);
+
+            return  RedirectToAction("Index");
+        }
     }
 }
