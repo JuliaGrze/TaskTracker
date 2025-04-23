@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ServicesContracts\ServiceContracts.csproj" />
+    <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
 </Project>

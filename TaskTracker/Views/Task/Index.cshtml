@@ -1,5 +1,66 @@
-﻿@{ 
+﻿@model IEnumerable<TaskResponse>
+@{
     ViewBag.Title = "Tasks";
 }
 
-<h1>Tasks</h1>
+<!--Aby formularz zebrał wartości z formularza z konkretnego elementu to ten element musi miec name="..."-->
+<form asp-controller="Persons" asp-action="Index" method="get">
+    <h1>Tasks</h1>
+
+    <!--SEARCH-->
+    <div class="box flex">
+        <div class="flex-1">
+            <select class="form-input" name="searchBy">
+                @foreach (var field in ViewBag.SearchFields)
+                {
+                    @if (field.Key == ViewBag.CurrentSearchBy)
+                    {
+                        <option value="@field.Key" selected="selected" )>@field.Value</option>
+                    }
+                    else
+                    {
+                        <option value="@field.Key" )>@field.Value</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="flex-1">
+            <!--Value = zachowany stan z wyszukiwania-->
+            <input type="search" id="Search" class="form-input" name="searchString" placeholder="Search..." value="@ViewBag.CurrentSearchString"/>
+        </div>
+
+        <div class="flex-1">
+            <button class="button button-pastel-yellow-back mr">Search</button>
+            <a asp-controller="Task" asp-action="Index" class="button button-pastel-purple-back">Clear all</a>
+        </div>
+    </div>
+
+    <!--TASKS LIST-->
+    <table class="table w-100 mt">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Created Data</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (TaskResponse task in Model)
+            {
+                <tr>
+                    <td>@task.Title</td>
+                    <td>@task.Description</td>
+                    <td>@task.CreatedDate.ToString("d")</td>
+                    <td>@task.Status</td>
+                    <td>
+                        <a asp-controller="Tasks" asp-action="Edit" asp-route-id="@task.TaskID" class="button button-pastel-blue-back mr">Edit</a>
+                        <a asp-controller="Tasks" asp-action="Delete" asp-route-id="@task.TaskID" class="button button-pastel-red-back">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>

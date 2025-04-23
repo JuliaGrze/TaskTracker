@@ -148,21 +148,21 @@ namespace Services
             switch (searchBy)
             {
                 //Title
-                case nameof(TaskEntity.Title):
+                case nameof(TaskResponse.Title):
                     matchingTasks = allTasks.Where(task => 
                         !string.IsNullOrEmpty(task.Title) &&
                         task.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase))
                         .ToList();
                     break;
                 //Description
-                case nameof(TaskEntity.Description):
+                case nameof(TaskResponse.Description):
                     matchingTasks = allTasks.Where(task => 
                         !string.IsNullOrEmpty(task.Description) &&
                         task.Description.Contains(searchString, StringComparison.OrdinalIgnoreCase))
                         .ToList();
                     break;
                 //CreatedDate
-                case nameof(TaskEntity.CreatedDate):
+                case nameof(TaskResponse.CreatedDate):
                     if(DateTime.TryParse(searchString, out DateTime createdDate))
                     {
                         matchingTasks = allTasks.Where(task =>
@@ -170,7 +170,7 @@ namespace Services
                             .ToList();
                     }
                     break;
-                case nameof(TaskEntity.Status):
+                case nameof(TaskResponse.Status):
                     matchingTasks = allTasks.Where(task =>
                         task.Status.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
                         .ToList();
