@@ -1,0 +1,87 @@
+﻿@model TaskUpdateRequest
+@{
+    ViewBag.Title = "Edit Task";
+}
+
+<a asp-controller="Task" asp-action="Index">Back to Tasks List</a>
+<h2>Update Task</h2>
+
+<div class="center-box box">
+    <form asp-controller="Task" asp-action="Edit" method="post">
+
+        @* Ukryte pole z ID *@
+        <input type="hidden" asp-for="TaskID" />
+
+        @*Title*@
+        <div class="flex">
+            <div class="w-25">
+                <label asp-for="Title" class="form-label">Title:</label>
+            </div>
+            <div class="flex-1">
+                <input asp-for="Title" class="form-input" />
+                <span asp-validation-for="Title" class="text-red"></span>
+
+            </div>
+        </div>
+
+        @*Description*@
+        <div class="flex">
+            <div class="w-25">
+                <label asp-for="Description" class="form-label">Description:</label>
+            </div>
+            <div class="flex-1">
+                <textarea asp-for="Description" class="form-input"></textarea>
+                <span asp-validation-for="Description" class="text-red"></span>
+
+            </div>
+        </div>
+
+        @*Status*@
+        <div class="flex">
+            <div class="w-25">
+                <label class="form-label">Status:</label>
+            </div>
+            <div class="flex-1">
+                @foreach (Taskstatus status in Enum.GetValues(typeof(Taskstatus)))
+                {
+                    var radioId = $"status_{status}"; // Wygeneruj unikalne ID
+
+                    // Upewnij się, że input ma to ID
+                    <input type="radio" asp-for="Status" value="@status"
+                           id="@radioId" class="mr" /> <!-- Dodaj ID, opcjonalnie klasa marginesu -->
+
+                    // Upewnij się, że label używa tego ID w atrybucie 'for'
+                    <label for="@radioId" class="mr">@status</label> <!-- Kluczowe jest 'for' i dodaj margines -->
+                }
+                <span asp-validation-for="Status" class="text-red"></span>
+
+            </div>
+        </div>
+
+        <div class="flex">
+            <div class="w-25"></div>
+            <div class="flex-1">
+                <button class="button button-green-back">Save</button>
+
+                @if (ViewBag.Errors != null)
+                {
+                    <div class="text-red ml">
+                        <ul>
+                            @foreach (string error in ViewBag.Errors)
+                            {
+                                <li class="ml">@error</li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" asp-fallback-test="window.jQuery" asp-fallback-src="~/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.21.0/jquery.validate.min.js" asp-fallback-test="window.jQuery.validator" asp-fallback-src="~/jquery.validate.min"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js" asp-fallback-test="window.jQuery.validator.unobtrusive" asp-fallback-src="~/jquery.validate.unobtrusive.min"></script>
+}

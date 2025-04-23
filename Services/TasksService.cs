@@ -237,22 +237,24 @@ namespace Services
             if (taskUpdateRequest == null)
                 throw new ArgumentNullException(nameof(taskUpdateRequest));
 
-            //validation
+            // Validation
             ValidationHelpers.ModelValidation(taskUpdateRequest);
 
-            //Get the match Task object from List<Task> based on TaskID to update
-            TaskResponse? matchingTask = GetTaskById(taskUpdateRequest.TaskID);
+            // Get the matching TaskEntity object from the list based on TaskID
+            TaskEntity? matchingTask = _tasks.FirstOrDefault(task => task.TaskID == taskUpdateRequest.TaskID);
 
-            //check if matching Task is null
+            // Check if the matching task is null
             if (matchingTask == null)
-                throw new ArgumentException("Given Task ID it doesn't exist!");
+                throw new ArgumentException("Given Task ID doesn't exist!");
 
-            //update all details from TaskUpdateRequest object to Task Objecct
+            // Update the details in the TaskEntity object
             matchingTask.Title = taskUpdateRequest.Title;
             matchingTask.Description = taskUpdateRequest.Description;
-            matchingTask.Status = taskUpdateRequest.Status;
+            matchingTask.Status = taskUpdateRequest.Status.ToString();
 
-            return matchingTask;
+            // Return the updated TaskResponse
+            return matchingTask.ToTaskResponse();
         }
+
     }
 }

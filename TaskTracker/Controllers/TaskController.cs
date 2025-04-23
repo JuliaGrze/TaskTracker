@@ -79,5 +79,44 @@ namespace TaskTracker.Controllers
 
             return  RedirectToAction("Index");
         }
+
+        //EDIT
+        [Route("[action]/{taskID}")]
+        [HttpGet]
+        public IActionResult Edit(Guid taskID)
+        {
+            TaskResponse? taskResponse = _tasksService.GetTaskById(taskID);
+            if (taskResponse == null)
+                return RedirectToAction("Index");
+
+            TaskUpdateRequest taskUpdateRequest = taskResponse.ToTaskUpdateRequest();
+            return View(taskUpdateRequest);
+        }
+
+        [Route("[action]/{taskID}")]
+        [HttpPost]
+        public IActionResult Edit(Guid taskID, TaskUpdateRequest taskUpdateRequest)
+        {
+            TaskResponse? taskResponse = _tasksService.GetTaskById(taskID);
+
+            if (taskResponse == null)
+                return RedirectToAction("Index");
+
+            //check if inputs are valid
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Errors = ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+
+                return View(taskUpdateRequest);
+            }
+
+            //UPDATE
+            _tasksService.UpdateTask(taskUpdateRequest);
+
+            return RedirectToAction("Index");
+        }
     }
 }
