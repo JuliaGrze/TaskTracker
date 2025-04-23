@@ -10,9 +10,83 @@ namespace Services
     {
         //private fields
         private List<TaskEntity> _tasks;
-        public TasksService()
+        public TasksService(bool initilize = true)
         {
             _tasks = new List<TaskEntity>();
+            if (initilize)
+            {
+                _tasks.Add(new TaskEntity
+                {
+                    TaskID = Guid.Parse("FDE50F74-5BF6-4125-AB35-832A1A987486"),
+                    Title = "Bieganie",
+                    Description = "Bieg na 10 km",
+                    CreatedDate = DateTime.Now.AddDays(-10),
+                    Status = Taskstatus.Pending.ToString()
+                });
+
+                _tasks.Add(new TaskEntity
+                {
+                    TaskID = Guid.Parse("56E7AD83-5296-4AA0-82A7-43CB3B9128ED"),
+                    Title = "Kolokwium bazy",
+                    Description = "Nauka na kolokwium z Mongo",
+                    CreatedDate = DateTime.Now.AddDays(-5),
+                    Status = Taskstatus.InProgress.ToString()
+                });
+
+                _tasks.Add(new TaskEntity
+                {
+                    TaskID = Guid.Parse("9B8DE07F-ECAC-4A14-9943-CB797D47F962"),
+                    Title = "Praca",
+                    Description = "Znalezienie pracy jako .NET Developer",
+                    CreatedDate = DateTime.Now.AddDays(-2),
+                    Status = Taskstatus.InProgress.ToString()
+                });
+
+                _tasks.Add(new TaskEntity
+                {
+                    TaskID = Guid.Parse("0B411A9A-0B64-4C70-96B5-F2025EA21AD9"),
+                    Title = "Zrobienie formy",
+                    Description = "Zrobienie formy na lato :)",
+                    CreatedDate = DateTime.Now.AddDays(-15),
+                    Status = Taskstatus.Completed.ToString()
+                });
+
+                _tasks.Add(new TaskEntity
+                {
+                    TaskID = Guid.NewGuid(),
+                    Title = "Zakupy",
+                    Description = "Kupić mleko, chleb, jajka",
+                    CreatedDate = DateTime.Now.AddDays(-1),
+                    Status = Taskstatus.Pending.ToString()
+                });
+
+                _tasks.Add(new TaskEntity
+                {
+                    TaskID = Guid.NewGuid(),
+                    Title = "Projekt ASP.NET",
+                    Description = "Dokończyć projekt Task Tracker",
+                    CreatedDate = DateTime.Now,
+                    Status = Taskstatus.InProgress.ToString()
+                });
+
+                _tasks.Add(new TaskEntity
+                {
+                    TaskID = Guid.NewGuid(),
+                    Title = "Nauka Entity Framework",
+                    Description = "Opanować EF Core przed egzaminem",
+                    CreatedDate = DateTime.Now.AddDays(-3),
+                    Status = Taskstatus.Pending.ToString()
+                });
+
+                _tasks.Add(new TaskEntity
+                {
+                    TaskID = Guid.NewGuid(),
+                    Title = "Spotkanie z mentorem",
+                    Description = "Omówić rozwój kariery .NET",
+                    CreatedDate = DateTime.Now.AddDays(-7),
+                    Status = Taskstatus.Completed.ToString()
+                });
+            }
         }
 
         public TaskResponse AddTask(TaskAddRequest? taskAddRequest)
